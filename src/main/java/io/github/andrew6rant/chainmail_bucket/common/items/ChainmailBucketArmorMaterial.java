@@ -21,14 +21,8 @@ import java.util.function.Supplier;
 
 public class ChainmailBucketArmorMaterial {
 
-    public static final EnumMap<ArmorItem.Type, Integer> BASE_DURABILITY = new EnumMap<>(ImmutableMap.ofEntries(
-            Map.entry(ArmorItem.Type.HELMET, 13),
-            Map.entry(ArmorItem.Type.CHESTPLATE, 15),
-            Map.entry(ArmorItem.Type.LEGGINGS, 16),
-            Map.entry(ArmorItem.Type.BOOTS, 11)
-    ));
     private static final EnumMap<ArmorItem.Type, Integer> PROTECTION_VALUES = new EnumMap<>(ImmutableMap.ofEntries(
-            Map.entry(ArmorItem.Type.HELMET, 1),
+            Map.entry(ArmorItem.Type.HELMET, 2),
             Map.entry(ArmorItem.Type.CHESTPLATE, 4),
             Map.entry(ArmorItem.Type.LEGGINGS, 5),
             Map.entry(ArmorItem.Type.BOOTS, 2)
