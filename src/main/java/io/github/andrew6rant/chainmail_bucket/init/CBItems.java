@@ -18,7 +18,7 @@ public class CBItems {
     }
 
     public static final Item CHAINMAIL_BUCKET = register("chainmail_bucket", new ChainmailBucketItem(ChainmailBucketArmorMaterial.CHAINMAIL_BUCKET, ArmorItem.Type.HELMET,new Item.Settings()
-            .maxDamage(net.minecraft.item.ArmorItem.Type.HELMET.getMaxDamage(15))
+            .maxDamage(ArmorItem.Type.HELMET.getMaxDamage(15))
     ));
 
     public static void init() {
