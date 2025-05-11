@@ -16,5 +16,6 @@ public class CBItemTagProvider extends FabricTagProvider.ItemTagProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
         getOrCreateTagBuilder(ConventionalItemTags.EMPTY_BUCKETS).add(CBItems.CHAINMAIL_BUCKET);
+        getOrCreateTagBuilder(ConventionalItemTags.ARMORS).add(CBItems.CHAINMAIL_BUCKET);
     }
 }

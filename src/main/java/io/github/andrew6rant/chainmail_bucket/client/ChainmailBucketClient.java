@@ -16,7 +16,7 @@ public class ChainmailBucketClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         ModelPredicateProviderRegistry.register(CBItems.CHAINMAIL_BUCKET, Identifier.ofVanilla("is_helmet"), (itemStack, clientWorld, livingEntity, j) -> {
-            if (livingEntity instanceof PlayerEntity) {
+            if (livingEntity.canUseSlot(EquipmentSlot.HEAD)) {
                 return livingEntity.getEquippedStack(EquipmentSlot.HEAD) == itemStack ? 1.0F : 0.0F;
             } return 0.0F;
         });
