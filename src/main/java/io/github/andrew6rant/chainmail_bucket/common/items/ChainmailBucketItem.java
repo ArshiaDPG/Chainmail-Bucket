@@ -3,14 +3,14 @@ package io.github.andrew6rant.chainmail_bucket.common.items;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.block.FluidDrainable;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
-import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.item.FluidModificationItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.stat.Stats;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -20,23 +20,23 @@ import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
-public class ChainmailBucketItem extends ArmorItem implements FluidModificationItem {
+public class ChainmailBucketItem extends Item implements FluidModificationItem {
 
 
-    public ChainmailBucketItem(RegistryEntry<ArmorMaterial> material, Type type, Settings settings) {
-        super(material, type, settings);
+    public ChainmailBucketItem(Settings settings) {
+        super(settings);
     }
 
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity playerEntity, Hand hand) {
+    public ActionResult use(World world, PlayerEntity playerEntity, Hand hand) {
         ItemStack itemStack = playerEntity.getStackInHand(hand);
         BlockHitResult blockHitResult = raycast(world, playerEntity, RaycastContext.FluidHandling.SOURCE_ONLY);
         if (blockHitResult.getType() == HitResult.Type.MISS || blockHitResult.getType() != HitResult.Type.BLOCK) {
-            return TypedActionResult.pass(itemStack);
+            return ActionResult.PASS;
         } else {
             BlockPos blockPos = blockHitResult.getBlockPos();
             Direction direction = blockHitResult.getSide();
             BlockPos blockPos2 = blockPos.offset(direction);
-            if (world.canPlayerModifyAt(playerEntity, blockPos) && playerEntity.canPlaceOn(blockPos2, direction, itemStack)) {
+            if (world.canEntityModifyAt(playerEntity, blockPos) && playerEntity.canPlaceOn(blockPos2, direction, itemStack)) {
                 BlockState blockState;
                 blockState = world.getBlockState(blockPos);
                 if (blockState.getBlock() instanceof FluidDrainable fluidDrainable) {
@@ -64,24 +64,18 @@ public class ChainmailBucketItem extends ArmorItem implements FluidModificationI
                             //world.emitGameEvent(playerEntity, GameEvent.FLUID_PLACE, blockPos);
                         }
 
-                        return TypedActionResult.success(itemStack, world.isClient());
+                        return ActionResult.SUCCESS.withNewHandStack(itemStack);
                     }
                 }
-                return TypedActionResult.fail(itemStack);
+                return ActionResult.FAIL;
             } else {
-                return TypedActionResult.fail(itemStack);
+                return ActionResult.FAIL;
             }
         }
     }
 
     @Override
-    public TypedActionResult<ItemStack> equipAndSwap(Item item, World world, PlayerEntity user, Hand hand) {
-        ItemStack itemStack = user.getStackInHand(hand);
-        return TypedActionResult.fail(itemStack);
-    }
-
-    @Override
-    public boolean placeFluid(@Nullable PlayerEntity player, World world, BlockPos pos, @Nullable BlockHitResult hitResult) {
+    public boolean placeFluid(@Nullable LivingEntity user, World world, BlockPos pos, @Nullable BlockHitResult hitResult) {
         return false;
     }
 }

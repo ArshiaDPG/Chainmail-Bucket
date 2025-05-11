@@ -1,0 +1,17 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "chainmail_bucket:item/chainmail_bucket"
+    },
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "chainmail_bucket:item/chainmail_bucket_helmet"
+    },
+    "property": "chainmail_bucket:worn_property",
+    "valid_slots": [
+      "head"
+    ]
+  }
+}

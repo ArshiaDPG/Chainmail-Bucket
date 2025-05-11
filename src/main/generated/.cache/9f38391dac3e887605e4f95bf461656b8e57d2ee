@@ -1,3 +1,4 @@
-// 1.21.1	2025-05-11T10:47:44.1510598	Chainmail Bucket/Model Definitions
-2b3dc5dbcec301bed776be02a1da784c6c65b64a assets\chainmail_bucket\models\item\chainmail_bucket_bucket.json
-ef74b765bd64a7ef9c28399a37c337542a60b8e7 assets\chainmail_bucket\models\item\chainmail_bucket_helmet.json
+// 1.21.5	-999999999-01-01T00:00:00	Chainmail Bucket/Model Definitions
+88e1b0eda5909da59694f56334272eae498161fc assets/chainmail_bucket/items/chainmail_bucket.json
+2b3dc5dbcec301bed776be02a1da784c6c65b64a assets/chainmail_bucket/models/item/chainmail_bucket.json
+ef74b765bd64a7ef9c28399a37c337542a60b8e7 assets/chainmail_bucket/models/item/chainmail_bucket_helmet.json

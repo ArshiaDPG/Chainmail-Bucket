@@ -1,9 +1,15 @@
 package io.github.andrew6rant.chainmail_bucket.common.datagen;
 
+import io.github.andrew6rant.chainmail_bucket.common.items.models.WornProperty;
 import io.github.andrew6rant.chainmail_bucket.init.CBItems;
+import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
-import net.minecraft.data.client.*;
+import net.minecraft.client.data.*;
+import net.minecraft.client.render.item.model.ItemModel;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.Item;
+
+import java.util.List;
 
 public class CBModelProvider extends FabricModelProvider {
     public CBModelProvider(FabricDataOutput output) {
@@ -15,7 +21,12 @@ public class CBModelProvider extends FabricModelProvider {
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-        Models.GENERATED.upload(ModelIds.getItemSubModelId(CBItems.CHAINMAIL_BUCKET, "_bucket"), TextureMap.layer0(TextureMap.getId(CBItems.CHAINMAIL_BUCKET)), itemModelGenerator.writer);
-        itemModelGenerator.register(CBItems.CHAINMAIL_BUCKET, "_helmet", Models.GENERATED);
+        registerChainmailBucket(itemModelGenerator, CBItems.CHAINMAIL_BUCKET);
+    }
+
+    public final void registerChainmailBucket(ItemModelGenerator itemModelGenerator, Item item) {
+        ItemModel.Unbaked unworn = ItemModels.basic(itemModelGenerator.registerSubModel(item, "", Models.GENERATED));
+        ItemModel.Unbaked worn = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_helmet", Models.GENERATED));
+        itemModelGenerator.output.accept(item, ItemModels.condition(new WornProperty(List.of(EquipmentSlot.HEAD)), worn, unworn));
     }
 }

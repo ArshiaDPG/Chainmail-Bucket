@@ -1,5 +1,6 @@
 package io.github.andrew6rant.chainmail_bucket;
 
+import io.github.andrew6rant.chainmail_bucket.common.datagen.CBEquipmentAssetProvider;
 import io.github.andrew6rant.chainmail_bucket.common.datagen.CBModelProvider;
 import io.github.andrew6rant.chainmail_bucket.common.datagen.CBRecipeProvider;
 import io.github.andrew6rant.chainmail_bucket.common.datagen.lang.CBLanguageProvider;
@@ -20,5 +21,7 @@ public class ChainmailBucketDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(CBModelProvider::new);
         pack.addProvider(CBRecipeProvider::new);
         pack.addProvider(CBItemTagProvider::new);
+
+        pack.addProvider(CBEquipmentAssetProvider::new);
     }
 }

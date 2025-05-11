@@ -14,7 +14,9 @@ repositories {
     // for more information about repositories.
 }
 fabricApi {
-    configureDataGeneration()
+    configureDataGeneration() {
+        client = true
+    }
 }
 dependencies {
     // To change the versions see the gradle.properties file
