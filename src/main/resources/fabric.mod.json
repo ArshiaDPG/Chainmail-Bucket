@@ -17,14 +17,17 @@
     ],
     "main": [
       "io.github.andrew6rant.chainmail_bucket.ChainmailBucket"
+    ],
+    "fabric-datagen": [
+      "io.github.andrew6rant.chainmail_bucket.ChainmailBucketDataGenerator"
     ]
   },
   "mixins": [
     "chainmail_bucket.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.14.12",
+    "fabricloader": ">=0.15",
     "fabric": "*",
-    "minecraft": ">=1.19.3"
+    "minecraft": ">=1.21"
   }
 }

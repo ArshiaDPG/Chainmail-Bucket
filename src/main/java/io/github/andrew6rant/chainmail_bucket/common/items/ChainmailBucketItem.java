@@ -1,11 +1,13 @@
-package io.github.andrew6rant.chainmail_bucket;
+package io.github.andrew6rant.chainmail_bucket.common.items;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.block.FluidDrainable;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -21,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 public class ChainmailBucketItem extends ArmorItem implements FluidModificationItem {
 
 
-    public ChainmailBucketItem(ArmorMaterial material, ArmorItem.Type type, Settings settings) {
+    public ChainmailBucketItem(RegistryEntry<ArmorMaterial> material, Type type, Settings settings) {
         super(material, type, settings);
     }
 
@@ -38,12 +40,12 @@ public class ChainmailBucketItem extends ArmorItem implements FluidModificationI
                 BlockState blockState;
                 blockState = world.getBlockState(blockPos);
                 if (blockState.getBlock() instanceof FluidDrainable fluidDrainable) {
-                    ItemStack isDrainable = fluidDrainable.tryDrainFluid(world, blockPos, blockState);
+                    ItemStack isDrainable = fluidDrainable.tryDrainFluid(playerEntity, world, blockPos, blockState);
                     if (!isDrainable.isEmpty()) { // if tryDrainFluid succeeds
                         playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
                         fluidDrainable.getBucketFillSound().ifPresent((sound) -> playerEntity.playSound(sound, 1.0F, 1.0F));
                         world.emitGameEvent(playerEntity, GameEvent.FLUID_PICKUP, blockPos);
-                        itemStack.damage(1, playerEntity, (player) -> player.sendToolBreakStatus(hand));
+                        itemStack.damage(1, playerEntity, LivingEntity.getSlotForHand(hand));
                         if (!world.isClient) {
                             BlockState fluidState = blockState.getFluidState().getBlockState().with(FluidBlock.LEVEL, 3);
                             BlockPos playerPos = playerEntity.getBlockPos();
@@ -70,6 +72,12 @@ public class ChainmailBucketItem extends ArmorItem implements FluidModificationI
                 return TypedActionResult.fail(itemStack);
             }
         }
+    }
+
+    @Override
+    public TypedActionResult<ItemStack> equipAndSwap(Item item, World world, PlayerEntity user, Hand hand) {
+        ItemStack itemStack = user.getStackInHand(hand);
+        return TypedActionResult.fail(itemStack);
     }
 
     @Override
