@@ -2,12 +2,12 @@
   "layers": {
     "humanoid": [
       {
-        "texture": "chainmail_bucket:chain_bucket"
+        "texture": "chainmail_bucket:chainmail_bucket"
       }
     ],
     "humanoid_leggings": [
       {
-        "texture": "chainmail_bucket:chain_bucket"
+        "texture": "chainmail_bucket:chainmail_bucket"
       }
     ]
   }

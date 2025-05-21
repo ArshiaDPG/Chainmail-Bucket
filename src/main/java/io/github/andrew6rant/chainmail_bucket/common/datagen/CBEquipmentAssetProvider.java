@@ -37,7 +37,7 @@ public class CBEquipmentAssetProvider implements DataProvider {
 
     @Override
     public CompletableFuture<?> run(DataWriter writer) {
-        Map<RegistryKey<EquipmentAsset>, EquipmentModel> map = new HashMap();
+        Map<RegistryKey<EquipmentAsset>, EquipmentModel> map = new HashMap<>();
         bootstrap((key, model) -> {
             if (map.putIfAbsent(key, model) != null) {
                 throw new IllegalStateException("Tried to register equipment asset twice for id: " + key);
